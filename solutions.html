@@ -223,17 +223,89 @@
             box-shadow: var(--light);
         }
 
-        /* ===== HERO — grey, vertically stacked swipeable cards on the LEFT, image on the RIGHT ===== */
+        /* ===== HERO ===== */
         section.hero {
             position: relative;
             background: var(--hero-grey);
             overflow: hidden;
         }
 
+        /* --- NEW: text banner — 6 × the 22px navbar height --- */
+        .hero-banner {
+            min-height: 132px;               /* 6 × 22px navbar */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            background: var(--hero-grey);
+            text-align: center;
+            position: relative;
+        }
+
+        /* thin gold seams top & bottom to tie into the hero cards */
+        .hero-banner::before,
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0.85;
+            border-radius: 2px;
+        }
+        .hero-banner::before { top: 10px; }
+        .hero-banner::after  { bottom: 10px; }
+
+        .hero-banner-inner {
+            max-width: 1000px;
+        }
+
+        .hero-banner-kicker {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.42em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .hero-banner-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: clamp(0.95rem, 2.6vw, 1.7rem);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffff;
+            line-height: 1.25;
+        }
+
+        .hero-banner-text .dot {
+            color: var(--accent);
+            margin: 0 0.35em;
+        }
+
+        /* --- NEW: landscape image strip --- */
+        .hero-landscape {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .hero-landscape img {
+            width: 100%;
+            height: clamp(220px, 38vw, 480px);
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- Existing hero content (cards + lady) --- */
         .hero-inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px 60px;   /* top padding removed — no gap under the nav */
+            padding: 48px 30px 60px;   /* top padding added — hero now starts under the image */
             display: flex;
             align-items: center;
             gap: 60px;
@@ -369,7 +441,7 @@
 
         /* Hero responsive */
         @media (max-width: 992px) {
-            .hero-inner { gap: 40px; padding: 0 24px 50px; }
+            .hero-inner { gap: 40px; padding: 40px 24px 50px; }
             .hero-cards-viewport { max-height: 380px; }
             .hero-card-title { font-size: 1.5rem; }
             .hero-card-tagline { font-size: 1.1rem; }
@@ -380,7 +452,7 @@
             .hero-inner {
                 flex-direction: column;
                 gap: 28px;
-                padding: 0 20px 50px;
+                padding: 32px 20px 50px;
             }
             .hero-left, .hero-right {
                 width: 100%;
@@ -389,10 +461,11 @@
             .hero-right { order: -1; }
             .hero-lady { max-width: 280px; }
             .hero-cards-viewport { max-height: 360px; }
+            .hero-banner { min-height: 132px; }
         }
 
         @media (max-width: 480px) {
-            .hero-inner { padding: 0 16px 40px; }
+            .hero-inner { padding: 28px 16px 40px; }
             .hero-lady { max-width: 220px; }
             .hero-cards-viewport { max-height: 320px; }
             .hero-card { padding: 22px 20px 24px; }
@@ -401,6 +474,8 @@
             .hero-card-tagline { font-size: 1rem; }
             .hero-card-text { font-size: 0.85rem; }
             .hero-card-label { font-size: 0.62rem; letter-spacing: 1.4px; }
+            .hero-banner-kicker { font-size: 0.55rem; letter-spacing: 0.32em; }
+            .hero-banner-text { font-size: 0.9rem; letter-spacing: 0.08em; }
         }
 
         /* Solutions Overview */
@@ -923,8 +998,28 @@
         </div>
     </nav>
 
-    <!-- Hero Section — grey; warm charcoal cards (vertical, swipeable) on LEFT, image on RIGHT -->
+    <!-- Hero Section -->
     <section class="hero">
+
+        <!-- NEW: stylized all-caps text banner (6 × navbar height = 132px) -->
+        <div class="hero-banner" aria-label="Mealcarta invitation banner">
+            <div class="hero-banner-inner">
+                <p class="hero-banner-kicker">A Mealcarta Invitation</p>
+                <h1 class="hero-banner-text">
+                    Eat Together<span class="dot">·</span>Think Together<span class="dot">·</span>Grow Together
+                </h1>
+            </div>
+        </div>
+
+        <!-- NEW: landscape image strip -->
+        <div class="hero-landscape">
+            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1800&h=700&q=80"
+                 alt="A long communal table set for a shared meal"
+                 loading="lazy"
+                 decoding="async">
+        </div>
+
+        <!-- Existing hero content: cards on LEFT, image on RIGHT -->
         <div class="hero-inner">
             <div class="hero-left">
                 <div class="hero-cards-viewport" aria-label="Mealcarta hero highlights — scroll or swipe vertically to explore">
@@ -1430,4 +1525,4 @@
         });
     </script>
 </body>
-                        </html>
+    </html>
